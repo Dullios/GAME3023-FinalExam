@@ -11331,9 +11331,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   globalLight: {fileID: 865318122}
   playerLight: {fileID: 2123520644}
+  intensityChange: 0.03
+  changeSpeed: 0.2
   wType: 0
-  changeTime: 0
+  changeDelay: 3
   timer: 0
+  changeChance: 100
   rainSystem: {fileID: 839066141}
   stormSystem: {fileID: 533372054}
 --- !u!4 &2041957354

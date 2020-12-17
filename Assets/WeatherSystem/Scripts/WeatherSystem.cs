@@ -10,9 +10,13 @@ public class WeatherSystem : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void TransitionFromWeather()
     {
-        
+
+    }
+
+    public void TransitionToWeather()
+    {
+
     }
 }
