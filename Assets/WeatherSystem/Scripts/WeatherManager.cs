@@ -64,12 +64,12 @@ public class WeatherManager : MonoBehaviour
                         break;
                     case WeatherType.OVERCAST:
                         // Transition to sunny
-                        //if (Random.Range(0.0f, 100.0f) <= changeChance)
-                        //{
-                        //    TransitionToSunny();
-                        //}
-                        //// Transition to raining
-                        /*else*/ if (Random.Range(0.0f, 100.0f) <= changeChance)
+                        /*if (Random.Range(0.0f, 100.0f) <= changeChance)
+                        {
+                            TransitionToSunny();
+                        }
+                        // Transition to raining
+                        else*/ if (Random.Range(0.0f, 100.0f) <= changeChance)
                         {
                             wType = WeatherType.RAINING;
                             rSystem.TransitionToSystem();
@@ -77,23 +77,24 @@ public class WeatherManager : MonoBehaviour
                         break;
                     case WeatherType.RAINING:
                         // Transition to overcast
-                        if (Random.Range(0.0f, 100.0f) <= changeChance)
+                        /*if (Random.Range(0.0f, 100.0f) <= changeChance)
                         {
                             wType = WeatherType.OVERCAST;
                             rSystem.TransitionFromSystem();
                         }
-                        // Transition to raining
-                        else if (Random.Range(0.0f, 100.0f) <= changeChance)
+                        // Transition to storming
+                        else*/ if (Random.Range(0.0f, 100.0f) <= changeChance)
                         {
-                            // TransitionFrom
+                            wType = WeatherType.THUNDERSTORM;
+                            rSystem.TransitionToStorm();
                         }
                         break;
                     case WeatherType.THUNDERSTORM:
                         // Transition to raining
                         if (Random.Range(0.0f, 100.0f) <= changeChance)
                         {
-                            // TransitionFrom
-                            // TransitionTO
+                            wType = WeatherType.RAINING;
+                            rSystem.TransitionFromStorm();
                         }
                         break;
                 }

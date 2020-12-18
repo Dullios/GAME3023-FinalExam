@@ -13445,6 +13445,7 @@ MonoBehaviour:
   emissionChange: 1
   changeDelay: 0.2
   isTransitioning: 0
+  stormEmissionChange: 10
 --- !u!199 &839066144
 ParticleSystemRenderer:
   serializedVersion: 6
