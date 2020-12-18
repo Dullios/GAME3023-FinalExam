@@ -11853,29 +11853,5 @@ PrefabInstance:
       propertyPath: playerLight
       value: 
       objectReference: {fileID: 2123520644}
-    - target: {fileID: 5899688484647105268, guid: a6962e8e227320d4e9b2d25a81d0c289, type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5899688484647105268, guid: a6962e8e227320d4e9b2d25a81d0c289, type: 3}
-      propertyPath: m_Volume
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5899688484647105269, guid: a6962e8e227320d4e9b2d25a81d0c289, type: 3}
-      propertyPath: maxVolume
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5899688484647105269, guid: a6962e8e227320d4e9b2d25a81d0c289, type: 3}
-      propertyPath: increment
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5899688484647105269, guid: a6962e8e227320d4e9b2d25a81d0c289, type: 3}
-      propertyPath: delay
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 5899688484647105271, guid: a6962e8e227320d4e9b2d25a81d0c289, type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6962e8e227320d4e9b2d25a81d0c289, type: 3}

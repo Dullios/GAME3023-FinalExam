@@ -71,7 +71,7 @@ public class WeatherManager : MonoBehaviour
                         break;
                     case WeatherType.OVERCAST:
                         // Transition to sunny
-                        /*if (Random.Range(0.0f, 100.0f) <= changeChance)
+                        if (Random.Range(0.0f, 100.0f) <= changeChance)
                         {
                             wType = WeatherType.SUNNY;
                             TransitionToSunny();
@@ -79,7 +79,7 @@ public class WeatherManager : MonoBehaviour
                             ambience.FadeIn(WeatherType.SUNNY);
                         }
                         // Transition to raining
-                        else*/ if (Random.Range(0.0f, 100.0f) <= changeChance)
+                        else if (Random.Range(0.0f, 100.0f) <= changeChance)
                         {
                             wType = WeatherType.RAINING;
                             rSystem.TransitionToSystem();
@@ -89,7 +89,7 @@ public class WeatherManager : MonoBehaviour
                         break;
                     case WeatherType.RAINING:
                         // Transition to overcast
-                        /*if (Random.Range(0.0f, 100.0f) <= changeChance)
+                        if (Random.Range(0.0f, 100.0f) <= changeChance)
                         {
                             wType = WeatherType.OVERCAST;
                             rSystem.TransitionFromSystem();
@@ -97,7 +97,7 @@ public class WeatherManager : MonoBehaviour
                             ambience.FadeOut(WeatherType.RAINING);
                         }
                         // Transition to storming
-                        else*/ if (Random.Range(0.0f, 100.0f) <= changeChance)
+                        else if (Random.Range(0.0f, 100.0f) <= changeChance)
                         {
                             wType = WeatherType.THUNDERSTORM;
                             rSystem.TransitionToStorm();
@@ -105,6 +105,8 @@ public class WeatherManager : MonoBehaviour
 
                             ambience.FadeOut(WeatherType.RAINING);
                             ambience.FadeIn(WeatherType.THUNDERSTORM);
+
+                            StartCoroutine(RandomLightning());
                         }
                         break;
                     case WeatherType.THUNDERSTORM:
@@ -117,6 +119,8 @@ public class WeatherManager : MonoBehaviour
 
                             ambience.FadeOut(WeatherType.THUNDERSTORM);
                             ambience.FadeIn(WeatherType.RAINING);
+
+                            StopCoroutine(RandomLightning());
                         }
                         break;
                 }
@@ -184,9 +188,21 @@ public class WeatherManager : MonoBehaviour
         }
     }
 
+    IEnumerator RandomLightning()
+    {
+        while (wType == WeatherType.THUNDERSTORM)
+        {
+            yield return new WaitForSeconds(2);
+            if (Random.Range(0, 100) < 30)
+            {
+                StartCoroutine(LightFlash());
+                ambience.PlayThunder();
+            }
+        }
+    }
+
     IEnumerator LightFlash()
     {
-        yield return new WaitForSeconds(2);
         globalLight.intensity = 1.5f;
         yield return new WaitForSeconds(0.2f);
         globalLight.intensity = 0.33f;

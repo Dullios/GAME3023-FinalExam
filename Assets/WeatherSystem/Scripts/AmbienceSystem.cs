@@ -86,7 +86,7 @@ public class AmbienceSystem : MonoBehaviour
         }
     }
 
-    public void ThunderSound()
+    public void PlayThunder()
     {
         thunderSound.clip = thunderSFX[Random.Range(0, thunderSFX.Length)];
         thunderSound.Play();
