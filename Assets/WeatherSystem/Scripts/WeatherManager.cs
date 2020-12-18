@@ -21,7 +21,7 @@ public class WeatherManager : MonoBehaviour
     [Header("Light Settings")]
     [Range(0.01f, 0.1f)]
     public float intensityChange;
-    [Range(0, 0.5f)]
+    [Range(0.01f, 0.5f)]
     public float changeSpeed;
 
     [Header("Weather Controls")]
@@ -34,11 +34,13 @@ public class WeatherManager : MonoBehaviour
     
     [Header("Weather Objects")]
     public GameObject rainSystem;
-    public GameObject stormSystem;
+    private RainSystem rSystem;
 
     // Start is called before the first frame update
     void Start()
     {
+        rSystem = rainSystem.GetComponent<RainSystem>();
+
         wType = WeatherType.SUNNY;
         timer = 0.0f;
     }
@@ -46,7 +48,7 @@ public class WeatherManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isTransitioning)
+        if (!isTransitioning && !rSystem.isTransitioning)
         {
             timer += Time.deltaTime;
             if (timer >= changeDelay)
@@ -62,22 +64,23 @@ public class WeatherManager : MonoBehaviour
                         break;
                     case WeatherType.OVERCAST:
                         // Transition to sunny
-                        if (Random.Range(0.0f, 100.0f) <= changeChance)
-                        {
-                            TransitionToSunny();
-                        }
-                        // Transition to raining
-                        //else if (Random.Range(0.0f, 100.0f) <= changeChance)
+                        //if (Random.Range(0.0f, 100.0f) <= changeChance)
                         //{
-
+                        //    TransitionToSunny();
                         //}
+                        //// Transition to raining
+                        /*else*/ if (Random.Range(0.0f, 100.0f) <= changeChance)
+                        {
+                            wType = WeatherType.RAINING;
+                            rSystem.TransitionToSystem();
+                        }
                         break;
                     case WeatherType.RAINING:
                         // Transition to overcast
                         if (Random.Range(0.0f, 100.0f) <= changeChance)
                         {
-                            // TransitionFrom
-                            TransitionToOvercast();
+                            wType = WeatherType.OVERCAST;
+                            rSystem.TransitionFromSystem();
                         }
                         // Transition to raining
                         else if (Random.Range(0.0f, 100.0f) <= changeChance)
@@ -115,6 +118,9 @@ public class WeatherManager : MonoBehaviour
             yield return new WaitForSeconds(changeSpeed);
         }
 
+        yield return new WaitForSeconds(0.2f);
+        playerLight.enabled = false;
+
         isTransitioning = false;
     }
 
@@ -132,6 +138,9 @@ public class WeatherManager : MonoBehaviour
             globalLight.intensity -= intensityChange;
             yield return new WaitForSeconds(changeSpeed);
         }
+
+        yield return new WaitForSeconds(0.2f);
+        playerLight.enabled = true;
 
         isTransitioning = false;
     }
