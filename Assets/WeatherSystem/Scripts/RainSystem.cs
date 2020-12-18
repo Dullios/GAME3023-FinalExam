@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class RainSystem : WeatherSystem
 {
+    [Header("Rain Details")]
+    public int rainSpeed;
+
     [Header("Storm Details")]
+    public int stormSpeed;
     [Range(1, 100)]
     public int stormEmissionChange;
 
@@ -39,6 +43,10 @@ public class RainSystem : WeatherSystem
     public override void TransitionToSystem()
     {
         isTransitioning = true;
+
+        var m = particles.main;
+        m.startSpeed = rainSpeed;
+
         var em = particles.emission;
         em.enabled = true;
         em.rateOverTime = 0;
@@ -62,6 +70,10 @@ public class RainSystem : WeatherSystem
     public void TransitionFromStorm()
     {
         isTransitioning = true;
+
+        var m = particles.main;
+        m.startSpeed = rainSpeed;
+
         var em = particles.emission;
         StartCoroutine(FromStormRoutine(em));
     }
@@ -83,6 +95,10 @@ public class RainSystem : WeatherSystem
     public void TransitionToStorm()
     {
         isTransitioning = true;
+
+        var m = particles.main;
+        m.startSpeed = stormSpeed;
+
         var em = particles.emission;
         StartCoroutine(ToStormRoutine(em));
     }

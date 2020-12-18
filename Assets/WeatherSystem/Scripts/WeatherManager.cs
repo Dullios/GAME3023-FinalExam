@@ -36,6 +36,9 @@ public class WeatherManager : MonoBehaviour
     public GameObject rainSystem;
     private RainSystem rSystem;
 
+    [Header("Sound")]
+    public AmbienceSystem amb;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -87,15 +90,18 @@ public class WeatherManager : MonoBehaviour
                         {
                             wType = WeatherType.THUNDERSTORM;
                             rSystem.TransitionToStorm();
+                            StartCoroutine(ToStormRoutine());
+                            StartCoroutine(LightFlash());
                         }
                         break;
                     case WeatherType.THUNDERSTORM:
                         // Transition to raining
-                        if (Random.Range(0.0f, 100.0f) <= changeChance)
-                        {
-                            wType = WeatherType.RAINING;
-                            rSystem.TransitionFromStorm();
-                        }
+                        //if (Random.Range(0.0f, 100.0f) <= changeChance)
+                        //{
+                        //    wType = WeatherType.RAINING;
+                        //    rSystem.TransitionFromStorm();
+                        //    StartCoroutine(FromStormRoutine());
+                        //}
                         break;
                 }
 
@@ -144,5 +150,31 @@ public class WeatherManager : MonoBehaviour
         playerLight.enabled = true;
 
         isTransitioning = false;
+    }
+
+    IEnumerator FromStormRoutine()
+    {
+        while (globalLight.intensity < 0.66f)
+        {
+            globalLight.intensity += intensityChange;
+            yield return new WaitForSeconds(changeSpeed);
+        }
+    }
+
+    IEnumerator ToStormRoutine()
+    {
+        while (globalLight.intensity > 0.33f)
+        {
+            globalLight.intensity -= intensityChange;
+            yield return new WaitForSeconds(changeSpeed);
+        }
+    }
+
+    IEnumerator LightFlash()
+    {
+        yield return new WaitForSeconds(2);
+        globalLight.intensity = 1.5f;
+        yield return new WaitForSeconds(0.2f);
+        globalLight.intensity = 0.33f;
     }
 }
