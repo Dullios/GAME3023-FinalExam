@@ -26,10 +26,10 @@ public class WeatherManager : MonoBehaviour
 
     [Header("Weather Controls")]
     public WeatherType wType;
-    public float changeDelay;
-    public float timer;
     [Range(0, 100)]
     public float changeChance;
+    public float changeDelay;
+    public float timer;
     public bool isTransitioning;
     
     [Header("Weather Objects")]
@@ -37,7 +37,7 @@ public class WeatherManager : MonoBehaviour
     private RainSystem rSystem;
 
     [Header("Sound")]
-    public AmbienceSystem amb;
+    public AmbienceSystem ambience;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +46,7 @@ public class WeatherManager : MonoBehaviour
 
         wType = WeatherType.SUNNY;
         timer = 0.0f;
+        ambience.FadeIn(WeatherType.SUNNY);
     }
 
     // Update is called once per frame
@@ -62,20 +63,28 @@ public class WeatherManager : MonoBehaviour
                         // Transition to overcast
                         if (Random.Range(0.0f, 100.0f) <= changeChance)
                         {
+                            wType = WeatherType.OVERCAST;
                             TransitionToOvercast();
+
+                            ambience.FadeOut(WeatherType.SUNNY);
                         }
                         break;
                     case WeatherType.OVERCAST:
                         // Transition to sunny
                         /*if (Random.Range(0.0f, 100.0f) <= changeChance)
                         {
+                            wType = WeatherType.SUNNY;
                             TransitionToSunny();
+
+                            ambience.FadeIn(WeatherType.SUNNY);
                         }
                         // Transition to raining
                         else*/ if (Random.Range(0.0f, 100.0f) <= changeChance)
                         {
                             wType = WeatherType.RAINING;
                             rSystem.TransitionToSystem();
+
+                            ambience.FadeIn(WeatherType.RAINING);
                         }
                         break;
                     case WeatherType.RAINING:
@@ -84,6 +93,8 @@ public class WeatherManager : MonoBehaviour
                         {
                             wType = WeatherType.OVERCAST;
                             rSystem.TransitionFromSystem();
+
+                            ambience.FadeOut(WeatherType.RAINING);
                         }
                         // Transition to storming
                         else*/ if (Random.Range(0.0f, 100.0f) <= changeChance)
@@ -91,17 +102,22 @@ public class WeatherManager : MonoBehaviour
                             wType = WeatherType.THUNDERSTORM;
                             rSystem.TransitionToStorm();
                             StartCoroutine(ToStormRoutine());
-                            StartCoroutine(LightFlash());
+
+                            ambience.FadeOut(WeatherType.RAINING);
+                            ambience.FadeIn(WeatherType.THUNDERSTORM);
                         }
                         break;
                     case WeatherType.THUNDERSTORM:
                         // Transition to raining
-                        //if (Random.Range(0.0f, 100.0f) <= changeChance)
-                        //{
-                        //    wType = WeatherType.RAINING;
-                        //    rSystem.TransitionFromStorm();
-                        //    StartCoroutine(FromStormRoutine());
-                        //}
+                        if (Random.Range(0.0f, 100.0f) <= changeChance)
+                        {
+                            wType = WeatherType.RAINING;
+                            rSystem.TransitionFromStorm();
+                            StartCoroutine(FromStormRoutine());
+
+                            ambience.FadeOut(WeatherType.THUNDERSTORM);
+                            ambience.FadeIn(WeatherType.RAINING);
+                        }
                         break;
                 }
 
@@ -113,7 +129,6 @@ public class WeatherManager : MonoBehaviour
     private void TransitionToSunny()
     {
         isTransitioning = true;
-        wType = WeatherType.SUNNY;
         StartCoroutine(ToSunnyRoutine());
     }
 
@@ -134,7 +149,6 @@ public class WeatherManager : MonoBehaviour
     private void TransitionToOvercast()
     {
         isTransitioning = true;
-        wType = WeatherType.OVERCAST;
         StartCoroutine(ToOvercastRoutine());
     }
 

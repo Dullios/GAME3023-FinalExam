@@ -50,12 +50,12 @@ MonoBehaviour:
   intensityChange: 0.03
   changeSpeed: 0.2
   wType: 0
+  changeChance: 50
   changeDelay: 3
   timer: 0
-  changeChance: 100
   isTransitioning: 0
   rainSystem: {fileID: 5899688485131394115}
-  amb: {fileID: 5899688484647105269}
+  ambience: {fileID: 5899688484647105269}
 --- !u!1 &5899688484647105275
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,6 +111,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ad5ae53e7bf9e104aafd53724b34d3a7, type: 3}
   - {fileID: 8300000, guid: 13447f848ea2cfb4a921caac0df3eeb7, type: 3}
   - {fileID: 8300000, guid: 00ae44a7e6d642d4699f0a5faac8b055, type: 3}
+  maxVolume: 0.6
+  increment: 0.1
+  delay: 0.5
 --- !u!82 &5899688484647105268
 AudioSource:
   m_ObjectHideFlags: 0
@@ -123,9 +126,9 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7bf24b503b045904285b9f5908f9a776, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -219,9 +222,9 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8e673c874f565fe498ad148ee1a69a2e, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -315,9 +318,9 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a86f0b0131711564fa01b3766bc80ec5, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -411,7 +414,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0

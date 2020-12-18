@@ -25,23 +25,26 @@ public class AmbienceSystem : MonoBehaviour
         switch(type)
         {
             case WeatherType.SUNNY:
-                while(forestSound.volume > 0)
+                forestSound.Play();
+                while(forestSound.volume < maxVolume)
                 {
-                    forestSound.volume -= increment;
+                    forestSound.volume += increment;
                     yield return new WaitForSeconds(delay);
                 }
                 break;
             case WeatherType.RAINING:
-                while (rainSound.volume > 0)
+                rainSound.Play();
+                while (rainSound.volume < maxVolume)
                 {
-                    rainSound.volume -= increment;
+                    rainSound.volume += increment;
                     yield return new WaitForSeconds(delay);
                 }
                 break;
             case WeatherType.THUNDERSTORM:
-                while (stormSound.volume > 0)
+                stormSound.Play();
+                while (stormSound.volume < maxVolume)
                 {
-                    stormSound.volume -= increment;
+                    stormSound.volume += increment;
                     yield return new WaitForSeconds(delay);
                 }
                 break;
@@ -57,25 +60,28 @@ public class AmbienceSystem : MonoBehaviour
         switch (type)
         {
             case WeatherType.SUNNY:
-                while (forestSound.volume < maxVolume)
+                while (forestSound.volume > 0)
                 {
-                    forestSound.volume += increment;
+                    forestSound.volume -= increment;
                     yield return new WaitForSeconds(delay);
                 }
+                forestSound.Stop();
                 break;
             case WeatherType.RAINING:
-                while (rainSound.volume < maxVolume)
+                while (rainSound.volume > 0)
                 {
-                    rainSound.volume += increment;
+                    rainSound.volume -= increment;
                     yield return new WaitForSeconds(delay);
                 }
+                rainSound.Stop();
                 break;
             case WeatherType.THUNDERSTORM:
-                while (stormSound.volume < maxVolume)
+                while (stormSound.volume > 0)
                 {
-                    stormSound.volume += increment;
+                    stormSound.volume -= increment;
                     yield return new WaitForSeconds(delay);
                 }
+                stormSound.Stop();
                 break;
         }
     }
