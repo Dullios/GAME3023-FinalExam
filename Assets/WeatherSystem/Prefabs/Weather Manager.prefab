@@ -50,7 +50,7 @@ MonoBehaviour:
   intensityChange: 0.03
   changeSpeed: 0.2
   wType: 0
-  changeChance: 50
+  changeChance: 100
   changeDelay: 3
   timer: 0
   isTransitioning: 0
